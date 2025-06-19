@@ -1,25 +1,34 @@
-
 <?php
-$projects = [];
-
-$data_path = '../chatbot_idea/ideas.json'; // adjust the path as needed
-
-if (file_exists($data_path)) {
-    $json = file_get_contents($data_path);
-    $projects = json_decode($json, true);
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../Login/login.php");
+    exit();
 }
 
-function displayProjects($projects, $status) {
-    foreach ($projects as $project) {
-        if (isset($project["status"]) && $project["status"] === $status) {
-            echo "<div class='kanban-card'>";
-            echo "<h3>" . htmlspecialchars($project["title"]) . "</h3>";
-            if (isset($project["deadline"])) {
-                echo "<p><strong>Deadline:</strong> " . htmlspecialchars($project["deadline"]) . "</p>";
-            }
-            echo "<form method='post' action='#'><button>Share</button></form>";
-            echo "</div>";
-        }
+$user_id = $_SESSION['user_id'];
+$username = $_SESSION['username'] ?? 'User';
+
+$ideas = [];
+if (file_exists('ideas.json')) {
+    $ideas = json_decode(file_get_contents('ideas.json'), true);
+}
+
+// Normalize ideas into status categories
+$grouped_projects = [
+    'Not Started' => [],
+    'In Progress' => [],
+    'Completed' => []
+];
+
+foreach ($ideas as $idea) {
+    $status = strtolower(trim($idea['status'] ?? 'not_started'));
+
+    if ($status === 'in_progress') {
+        $grouped_projects['In Progress'][] = $idea;
+    } elseif ($status === 'completed') {
+        $grouped_projects['Completed'][] = $idea;
+    } else {
+        $grouped_projects['Not Started'][] = $idea;
     }
 }
 ?>
@@ -28,98 +37,91 @@ function displayProjects($projects, $status) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Project Board</title>
-    <link rel="stylesheet" href="projectStyle.css">
+    <title>Project Dashboard</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        body {
-            font-family: "Segoe UI", sans-serif;
-            background-color: #f8f8f8;
-            padding: 20px;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
         .kanban-board {
             display: flex;
             justify-content: space-between;
             gap: 20px;
         }
-
         .kanban-column {
-            background: #EBF5EE;
+            background: #f0fff5;
+            padding: 20px;
+            border-radius: 10px;
             flex: 1;
-            padding: 15px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
+            min-height: 300px;
         }
-
-        .kanban-column h2 {
-            text-align: center;
+        .kanban-column h3 {
             color: #921224;
+            margin-bottom: 10px;
         }
-
-        .kanban-card {
-            background: #fff;
-            border: 1px solid #ccc;
+        .project-card {
+            background: white;
             padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             margin-bottom: 15px;
+        }
+        .project-card h4 {
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+        .project-card p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        .badge {
+            font-size: 0.75rem;
+            background: #eee;
             border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 2px 6px;
+            margin-right: 5px;
         }
-
-        .kanban-card h3 {
-            margin: 0 0 10px;
-        }
-
-        .kanban-card button {
-            background-color: #921224;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .kanban-card button:hover {
-            background-color: #BCE0DA;
-            color: #921224;
-        }
-
         .back-button {
-            text-decoration: none;
-            padding: 8px 14px;
-            background-color: #921224;
+            float: right;
+            background: #921224;
             color: white;
-            border-radius: 4px;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 6px;
         }
     </style>
 </head>
 <body>
+<div class="dashboard-container">
+    <main class="main-content">
+        <header class="main-header">
+            <h1>Project Dashboard</h1>
+            <a href="dashboard.php" class="back-button">← Back to Dashboard</a>
+        </header>
 
-<div class="header">
-    <h1>Project Dashboard</h1>
-    <a class="back-button" href="/dashboardw.php">← Back to Dashboard</a>
-    
+        <div class="kanban-board">
+            <?php foreach ($grouped_projects as $status => $list): ?>
+                <div class="kanban-column">
+                    <h3><?= $status ?></h3>
+                    <?php if (empty($list)): ?>
+                        <p>No projects.</p>
+                    <?php else: ?>
+                        <?php foreach ($list as $idea): ?>
+                            <div class="project-card">
+                                <h4><?= htmlspecialchars($idea['title']) ?></h4>
+                                <p><?= htmlspecialchars($idea['short_desc'] ?? '') ?></p>
+                                <?php if (!empty($idea['tags'])): ?>
+                                    <div class="tags">
+                                        <?php foreach (explode(',', $idea['tags']) as $tag): ?>
+                                            <span class="badge"><?= htmlspecialchars(trim($tag)) ?></span>
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </main>
 </div>
-
-<div class="kanban-board">
-    <div class="kanban-column">
-        <h2>Not Started</h2>
-        <?php displayProjects($projects, "Not Started"); ?>
-    </div>
-    <div class="kanban-column">
-        <h2>In Progress</h2>
-        <?php displayProjects($projects, "In Progress"); ?>
-    </div>
-    <div class="kanban-column">
-        <h2>Completed</h2>
-        <?php displayProjects($projects, "Completed"); ?>
-    </div>
-</div>
-
 </body>
 </html>

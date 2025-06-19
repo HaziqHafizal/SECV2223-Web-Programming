@@ -64,7 +64,7 @@ unset($project);
             <ul>
                 <li class="active"><a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
                 <li><a href="project_dashboard_kanban.php"><i class="fas fa-project-diagram"></i> Projects</a></li>
-                <li><a href="Idea/index.php"><i class="fas fa-lightbulb"></i> Ideas</a></li>
+                <li><a href="Idea/idea.php"><i class="fas fa-lightbulb"></i> Ideas</a></li>
                 <li><a href="collaborators.php"><i class="fas fa-handshake"></i> Collaboration</a></li>
                 <li><a href="#"><i class="fas fa-users"></i> Team</a></li>
                 <li><a href="#"><i class="fas fa-calendar"></i> Calendar</a></li>
