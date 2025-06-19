@@ -7,12 +7,12 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Fetch user data
+// Get user info
 $user_id = $_SESSION['user_id'];
 $user_query = $conn->query("SELECT * FROM users WHERE id = $user_id");
 $user = $user_query->fetch_assoc();
 
-// Fetch projects/ideas
+// Load project data from JSON
 $projects = [];
 $data_path = 'ideas.json';
 if (file_exists($data_path)) {
@@ -20,18 +20,27 @@ if (file_exists($data_path)) {
     $projects = json_decode($json, true);
 }
 
-// Count projects by status
+// Status counters
 $status_counts = [
     'Not Started' => 0,
     'In Progress' => 0,
     'Completed' => 0
 ];
 
-foreach ($projects as $project) {
-    if (isset($project['status'])) {
-        $status_counts[$project['status']]++;
+// Normalize status
+foreach ($projects as &$project) {
+    $status = strtolower($project['status'] ?? 'Not Started');
+    if ($status === 'in_progress') $status = 'In Progress';
+    elseif ($status === 'completed') $status = 'Completed';
+    elseif ($status === 'not_started') $status = 'Not Started';
+
+    $project['status'] = $status;
+
+    if (isset($status_counts[$status])) {
+        $status_counts[$status]++;
     }
 }
+unset($project);
 ?>
 
 <!DOCTYPE html>
@@ -40,18 +49,17 @@ foreach ($projects as $project) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Dashboard | IdeaHub</title>
-    <link rel="stylesheet" href="dashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
 <div class="dashboard-container">
-    <!-- Sidebar Navigation -->
+    <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2>IdeaHub</h2>
             <p>Welcome, <?= htmlspecialchars($user['username']); ?></p>
         </div>
-
         <nav class="sidebar-nav">
             <ul>
                 <li class="active"><a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
@@ -66,22 +74,20 @@ foreach ($projects as $project) {
         </nav>
     </aside>
 
-    <!-- Main Content -->
+    <!-- Main -->
     <main class="main-content">
         <!-- Header -->
         <header class="main-header">
             <h1>Dashboard</h1>
             <div class="user-actions">
-                <span class="notification-badge">
-                    <i class="fas fa-bell"></i> <span>3</span>
-                </span>
+                <span class="notification-badge"><i class="fas fa-bell"></i> <span>3</span></span>
                 <div class="user-profile">
-                    <img src="https://via.placeholder.com/40" alt="User Profile" />
+                    <img src="https://via.placeholder.com/40" alt="User Profile">
                 </div>
             </div>
         </header>
 
-        <!-- Stats Section -->
+        <!-- Stats -->
         <section class="stats-section">
             <div class="stat-card">
                 <div class="stat-icon" style="background-color: #BCE0DA;">
@@ -92,7 +98,6 @@ foreach ($projects as $project) {
                     <p><?= count($projects); ?></p>
                 </div>
             </div>
-
             <div class="stat-card">
                 <div class="stat-icon" style="background-color: #FFE5D9;">
                     <i class="fas fa-tasks" style="color: #E76F51;"></i>
@@ -102,7 +107,6 @@ foreach ($projects as $project) {
                     <p><?= $status_counts['In Progress']; ?></p>
                 </div>
             </div>
-
             <div class="stat-card">
                 <div class="stat-icon" style="background-color: #D8E2DC;">
                     <i class="fas fa-check-circle" style="color: #2A9D8F;"></i>
@@ -112,7 +116,6 @@ foreach ($projects as $project) {
                     <p><?= $status_counts['Completed']; ?></p>
                 </div>
             </div>
-
             <div class="stat-card">
                 <div class="stat-icon" style="background-color: #F4ACB7;">
                     <i class="fas fa-user-friends" style="color: #9D8189;"></i>
@@ -134,22 +137,16 @@ foreach ($projects as $project) {
                 <?php 
                 $recent_projects = array_slice($projects, 0, 4);
                 foreach ($recent_projects as $project): 
-                    $status_class = strtolower(str_replace(' ', '-', $project['status'] ?? 'not-started'));
+                    $status_class = strtolower(str_replace(' ', '-', $project['status']));
                 ?>
                     <div class="project-card">
                         <h3><?= htmlspecialchars($project['title']); ?></h3>
                         <div class="project-meta">
                             <span class="status-badge <?= $status_class ?>">
-                                <?= htmlspecialchars($project['status'] ?? 'Not Started'); ?>
+                                <?= $project['status'] ?>
                             </span>
-                            <?php if (!empty($project['deadline'])): ?>
-                                <span class="deadline">
-                                    <i class="far fa-calendar-alt"></i>
-                                    <?= htmlspecialchars($project['deadline']); ?>
-                                </span>
-                            <?php endif; ?>
                         </div>
-                        <p><?= htmlspecialchars(substr($project['description'] ?? '', 0, 100)); ?>...</p>
+                        <p><?= htmlspecialchars(substr($project['short_desc'] ?? $project['detailed_desc'] ?? '', 0, 100)); ?>...</p>
                         <a href="project_dashboard_kanban.php" class="project-link">View Project</a>
                     </div>
                 <?php endforeach; ?>
@@ -160,22 +157,10 @@ foreach ($projects as $project) {
         <section class="quick-actions">
             <h2>Quick Actions</h2>
             <div class="action-buttons">
-                <a href="add.php" class="action-btn">
-                    <i class="fas fa-plus"></i>
-                    <span>Add New Idea</span>
-                </a>
-                <a href="project_dashboard_kanban.php" class="action-btn">
-                    <i class="fas fa-project-diagram"></i>
-                    <span>Create Project</span>
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-user-plus"></i>
-                    <span>Invite Team</span>
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-file-export"></i>
-                    <span>Generate Report</span>
-                </a>
+                <a href="add.php" class="action-btn"><i class="fas fa-plus"></i><span>Add New Idea</span></a>
+                <a href="project_dashboard_kanban.php" class="action-btn"><i class="fas fa-project-diagram"></i><span>Create Project</span></a>
+                <a href="#" class="action-btn"><i class="fas fa-user-plus"></i><span>Invite Team</span></a>
+                <a href="#" class="action-btn"><i class="fas fa-file-export"></i><span>Generate Report</span></a>
             </div>
         </section>
     </main>
