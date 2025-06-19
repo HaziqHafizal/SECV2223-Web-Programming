@@ -173,7 +173,7 @@ foreach ($projects as $project) {
                     <span>Invite Team</span>
                 </a>
                 <a href="#" class="action-btn">
-                    <i class="fas fa-file-export"></i>
+   
                     <span>Generate Report</span>
                 </a>
             </div>
