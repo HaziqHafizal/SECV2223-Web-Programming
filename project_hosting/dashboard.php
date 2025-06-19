@@ -69,7 +69,7 @@ unset($project);
                 <li><a href="#"><i class="fas fa-users"></i> Team</a></li>
                 <li><a href="#"><i class="fas fa-calendar"></i> Calendar</a></li>
                 <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-                <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                <li><a href="Login/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </nav>
     </aside>
