@@ -134,7 +134,7 @@ unset($project);
         <section class="projects-section">
             <div class="section-header">
                 <h2>Recent Projects</h2>
-                <a href="project_dashboard_kanban.php" class="view-all">View All</a>
+                <a href="projectList.php" class="view-all">View All</a>
             </div>
             <div class="projects-grid">
                 <?php 

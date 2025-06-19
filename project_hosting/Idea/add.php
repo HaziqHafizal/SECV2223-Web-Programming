@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_FILES["support_file"]["name"])) {
         $targetDir = "uploads/";
         if (!file_exists($targetDir)) mkdir($targetDir);
-        $filename = time() . "_" . basename($_FILES["support_file"]["name"]);
+        $filename = tiFme() . "_" . basename($_FILES["support_file"]["name"]);
         $targetFile = $targetDir . $filename;
         move_uploaded_file($_FILES["support_file"]["tmp_name"], $targetFile);
         $idea["file"] = $targetFile;
@@ -173,7 +173,7 @@ if (isset($_SESSION['user_id'])) {
 
                 <div class="form-buttons">
                     <button type="submit">💡 Submit Idea</button>
-                    <a href="index.php"><button type="button">Back</button></a>
+                    <a href="idea.php"><button type="button">Back</button></a>
                 </div>
             </form>
         </div>

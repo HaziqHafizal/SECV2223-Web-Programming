@@ -48,7 +48,7 @@ $filteredIdeas = array_filter($publicIdeas, function ($idea) use ($search, $cate
         <nav class="sidebar-nav">
             <ul>
                 <li><a href="../dashboard/dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="index.php"><i class="fas fa-lightbulb"></i> Ideas</a></li>
+                <li><a href="idea.php"><i class="fas fa-lightbulb"></i> Ideas</a></li>
                 <li><a href="../Idea/myprojects.php"><i class="fas fa-diagram-project"></i> Projects</a></li>
                 <li><a href="team.php"><i class="fas fa-users"></i> Team</a></li>
                 <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>

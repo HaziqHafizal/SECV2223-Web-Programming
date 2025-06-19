@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     ];
     
     file_put_contents($ideaFile, json_encode($ideas));
-    header("Location: index.php");
+    header("Location: idea.php");
     exit();
 }
 ?>

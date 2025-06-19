@@ -41,8 +41,8 @@ if (file_exists($idea_file)) {
         </div>
         <nav class="sidebar-nav">
             <ul>
-                <li><a href="../dashboard/dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="index.php"><i class="fas fa-lightbulb"></i> Ideas</a></li>
+                <li><a href="../dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="idea.php"><i class="fas fa-lightbulb"></i> Ideas</a></li>
                 <li><a href="../Idea/myprojects.php"><i class="fas fa-diagram-project"></i> Projects</a></li>
                 <li><a href="team.php"><i class="fas fa-users"></i> Team</a></li>
                 <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
@@ -91,6 +91,9 @@ if (file_exists($idea_file)) {
                             </div>
 
                             <a href="edit.php?index=<?= $index ?>" class="project-link"><i class="fas fa-edit"></i> Edit</a>
+                            <a href="delete.php?index=<?= $index ?>" class="project-link delete" onclick="return confirm('Are you sure you want to delete this project?');">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
                         </div>
                     <?php endforeach; ?>
                 </div>

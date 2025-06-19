@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $projects = [];
-$project_path = '../ideas.json';
+$project_path = 'ideas.json';
 if (file_exists($project_path)) {
     $projects = json_decode(file_get_contents($project_path), true);
 }
@@ -36,7 +36,7 @@ if (file_exists($project_path)) {
             <nav class="sidebar-nav">
                 <ul>
                     <li><a href="../dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
-                    <li><a href="index.php"><i class="fas fa-lightbulb"></i> Ideas</a></li>
+                    <li><a href="idea.php"><i class="fas fa-lightbulb"></i> Ideas</a></li>
                     <li><a href="../collaborators.php"><i class="fas fa-handshake"></i> Collaboration</a></li>
                     <li><a href="projectList.php"><i class="fas fa-diagram-project"></i> Projects</a></li>
                     <li><a href="team.php"><i class="fas fa-users"></i> Team</a></li>
@@ -71,7 +71,7 @@ if (file_exists($project_path)) {
         <section class="projects-section">
             <div class="section-header">
                 <h2>Recently Added Projects</h2>
-                <a href="projects.php" class="view-all">View All</a>
+                <a href="projectList.php" class="view-all">View All</a>
             </div>
             <div class="projects-grid">
                 <?php
@@ -91,6 +91,9 @@ if (file_exists($project_path)) {
                         <p><?= htmlspecialchars(substr($project['short_desc'] ?? '', 0, 100)) ?>...</p>
                         <?php if ($actualIndex !== false): ?>
                             <a href="edit.php?index=<?= $actualIndex ?>" class="project-link">Edit Project</a>
+                            <a href="delete.php?index=<?= $actualIndex ?>" class="project-link" style="color:red;" onclick="return confirm('Are you sure you want to delete this idea?');">
+                                Delete
+                            </a>
                         <?php else: ?>
                             <em style="color: red;">Index not found</em>
                         <?php endif; ?>

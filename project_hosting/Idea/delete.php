@@ -23,5 +23,5 @@ $ideas = array_values($ideas); // Re-index
 file_put_contents($ideaFile, json_encode($ideas));
 
 // ✅ Redirect to main page
-header("Location: index.php");
+header("Location: ../dashboard.php");
 exit();

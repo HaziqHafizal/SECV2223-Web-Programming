@@ -461,6 +461,22 @@ body {
     color: var(--accent-color);
 }
 
+.project-link {
+    display: inline-block;
+    margin-right: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.project-link:hover {
+    text-decoration: underline;
+}
+
+.project-link.delete {
+    color: #e74c3c;
+}
+
+
 /*projectList Css*/
 .badge-public { background: #BCE0DA; color: #004D40; }
 .badge-private { background: #F8D7DA; color: #721C24; }
