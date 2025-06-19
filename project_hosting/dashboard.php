@@ -27,20 +27,23 @@ $status_counts = [
     'Completed' => 0
 ];
 
-// Normalize status
+// Normalize and count
 foreach ($projects as &$project) {
-    $status = strtolower($project['status'] ?? 'Not Started');
-    if ($status === 'in_progress') $status = 'In Progress';
-    elseif ($status === 'completed') $status = 'Completed';
-    elseif ($status === 'not_started') $status = 'Not Started';
+    $status = strtolower(trim($project['status'] ?? 'not_started'));
 
-    $project['status'] = $status;
-
-    if (isset($status_counts[$status])) {
-        $status_counts[$status]++;
+    if ($status === 'in_progress' || $status === 'in progress') {
+        $project['status'] = 'In Progress';
+        $status_counts['In Progress']++;
+    } elseif ($status === 'completed') {
+        $project['status'] = 'Completed';
+        $status_counts['Completed']++;
+    } else {
+        $project['status'] = 'Not Started';
+        $status_counts['Not Started']++;
     }
 }
 unset($project);
+
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +66,7 @@ unset($project);
         <nav class="sidebar-nav">
             <ul>
                 <li class="active"><a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="project_dashboard_kanban.php"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                <li><a href="project_dashboard_kanban.php"><i class="fas fa-project-diagram"></i> Project Status</a></li>
                 <li><a href="Idea/idea.php"><i class="fas fa-lightbulb"></i> Ideas</a></li>
                 <li><a href="collaborators.php"><i class="fas fa-handshake"></i> Collaboration</a></li>
                 <li><a href="#"><i class="fas fa-users"></i> Team</a></li>
@@ -157,8 +160,8 @@ unset($project);
         <section class="quick-actions">
             <h2>Quick Actions</h2>
             <div class="action-buttons">
-                <a href="add.php" class="action-btn"><i class="fas fa-plus"></i><span>Add New Idea</span></a>
-                <a href="project_dashboard_kanban.php" class="action-btn"><i class="fas fa-project-diagram"></i><span>Create Project</span></a>
+                <a href="Idea/add.php" class="action-btn"><i class="fas fa-plus"></i><span>Add New Idea</span></a>
+                <a href="project_dashboard_kanban.php" class="action-btn"><i class="fas fa-project-diagram"></i><span>Project Status</span></a>
                 <a href="#" class="action-btn"><i class="fas fa-user-plus"></i><span>Invite Team</span></a>
                 <a href="#" class="action-btn"><i class="fas fa-file-export"></i><span>Generate Report</span></a>
             </div>

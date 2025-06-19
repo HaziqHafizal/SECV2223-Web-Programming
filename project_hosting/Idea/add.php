@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Clear the form data after successful submission
     unset($_SESSION['form_data']);
-    header("Location: index.php");
+    header("Location: idea.php");  // ✅ correct, since this is the actual idea dashboard
     exit();
 }
 
