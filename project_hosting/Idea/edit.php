@@ -1,6 +1,6 @@
 <?php
 $index = isset($_GET["index"]) ? intval($_GET["index"]) : null;
-$ideaFile = "ideas.json";
+$ideaFile = "../Idea/ideas.json";
 
 if (!isset($index) || !file_exists($ideaFile)) {
     die("Invalid access: index or file not found.");
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     ];
     
     file_put_contents($ideaFile, json_encode($ideas));
-    header("Location: idea.php");
+    header("Location: projectList.php");
     exit();
 }
 ?>
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <div class="edit-form-wrapper">
         <h2><i class="fas fa-pen-to-square"></i> Edit Idea</h2>
         <p class="subtitle"><b>Update the details of your shared idea below.<b></p>
-        <form method="POST" enctype="multipart/form-data" class="styled-form">
+        <form method="POST" action="edit.php?index=<?= $index ?>" enctype="multipart/form-data" class="styled-form">
             <label for="title"><i class="fas fa-heading"></i> Title</label>
             <input type="text" name="title" value="<?= htmlspecialchars($idea['title'] ?? '') ?>" required>
 
@@ -127,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <div class="form-buttons">
                 <button type="submit"><i class="fas fa-save"></i> Update Idea</button>
-                <a href="index.php"><button type="button"><i class="fas fa-arrow-left"></i> Back</button></a>
+                <a href="projectList.php"><button type="button"><i class="fas fa-arrow-left"></i> Back</button></a>
             </div>
         </form>
     </div>

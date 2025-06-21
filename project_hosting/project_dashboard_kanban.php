@@ -83,7 +83,7 @@ foreach ($ideas as $index => $idea) {
             background: #ffffff;
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             flex: 1;
         }
         .kanban-column h3 {

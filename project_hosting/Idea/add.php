@@ -237,7 +237,8 @@ if (isset($_SESSION['user_id'])) {
                     sessionStorage.setItem(key, value);
                 }
                 
-                window.location.href = `invit_collaboration.php?user_id=${userId}`;
+        document.getElementById('redirect-user-id').value = userId;
+        document.getElementById('collabRedirectForm').submit();
             });
         });
         
@@ -285,5 +286,8 @@ if (isset($_SESSION['user_id'])) {
         });
     });
 </script>
+<form id="collabRedirectForm" method="POST" action="../invit_collaboration.php" style="display: none;">
+    <input type="hidden" name="user_id" id="redirect-user-id">
+</form>
 </body>
 </html>

@@ -49,12 +49,21 @@ unset($project);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Dashboard | IdeaHub</title>
-    <link rel="stylesheet" href="dashboard.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invite Collaboration</title>
+
+    <!-- ✅ Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Global layout styles -->
+    <link rel="stylesheet" href="dashboard.css">
+
+    <!-- Collaborator-specific styles -->
+    <link rel="stylesheet" href="Collab/inv_style.css">
 </head>
+
+
 <body>
 <div class="dashboard-container">
     <!-- Sidebar -->
@@ -69,9 +78,6 @@ unset($project);
                 <li><a href="project_dashboard_kanban.php"><i class="fas fa-project-diagram"></i> Project Status</a></li>
                 <li><a href="Idea/idea.php"><i class="fas fa-lightbulb"></i> Ideas</a></li>
                 <li><a href="collaborators.php"><i class="fas fa-handshake"></i> Collaboration</a></li>
-                <li><a href="#"><i class="fas fa-users"></i> Team</a></li>
-                <li><a href="#"><i class="fas fa-calendar"></i> Calendar</a></li>
-                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
                 <li><a href="Login/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </nav>
@@ -134,7 +140,7 @@ unset($project);
         <section class="projects-section">
             <div class="section-header">
                 <h2>Recent Projects</h2>
-                <a href="projectList.php" class="view-all">View All</a>
+                <a href="Idea/projectList.php" class="view-all">View All</a>
             </div>
             <div class="projects-grid">
                 <?php 
