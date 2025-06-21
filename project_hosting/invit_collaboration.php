@@ -168,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
 
             <div class="form-actions">
                 <button type="submit" class="send-button">Send Invitation</button>
-                <a href="collaborators.php" class="back-button">Back</a>
+                <a href="Idea/add.php" class="back-button">Back</a>
             </div>
         </form>
     </div>

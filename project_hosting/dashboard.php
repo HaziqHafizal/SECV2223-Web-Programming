@@ -168,7 +168,7 @@ unset($project);
             <div class="action-buttons">
                 <a href="Idea/add.php" class="action-btn"><i class="fas fa-plus"></i><span>Add New Idea</span></a>
                 <a href="project_dashboard_kanban.php" class="action-btn"><i class="fas fa-project-diagram"></i><span>Project Status</span></a>
-                <a href="#" class="action-btn"><i class="fas fa-user-plus"></i><span>Invite Team</span></a>
+                <a href="collaborators.php" class="action-btn"><i class="fas fa-user-plus"></i><span>Invite Team</span></a>
                 <a href="#" class="action-btn"><i class="fas fa-file-export"></i><span>Generate Report</span></a>
             </div>
         </section>

@@ -19,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "file" => ""
     ];
 
+    $idea['collaborators'] = $_POST['collaborators'] ?? [];
+
     // Store form data in session in case we redirect back
     $_SESSION['form_data'] = $_POST;
 
@@ -149,21 +151,16 @@ if (isset($_SESSION['user_id'])) {
                 </div>
                 
                 <div class="collaborators-section" id="collaborators-section">
-                    <div class="user-search-container">
-                        <input type="text" class="user-search-input" id="user-search" placeholder="Search users...">
-                        <div class="user-dropdown" id="user-dropdown">
-                            <?php if (!empty($users)): ?>
-                                <?php foreach ($users as $user): ?>
-                                    <div class="user-item" data-user-id="<?= $user['id'] ?>">
-                                        <?= htmlspecialchars($user['username']) ?>
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <div class="no-users">No users found</div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
+                    <label>Select Collaborators</label>
+                    <select name="collaborators[]" multiple size="5">
+                        <?php foreach ($users as $user): ?>
+                            <option value="<?= $user['id'] ?>">
+                                <?= htmlspecialchars($user['username']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
+
 
                 <label>Visibility</label>
                 <select name="visibility">
