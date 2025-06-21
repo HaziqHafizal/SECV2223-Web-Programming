@@ -14,7 +14,7 @@ $user = $user_query->fetch_assoc();
 
 // Load project data from JSON
 $projects = [];
-$data_path = 'ideas.json';
+$data_path = 'Idea/ideas.json';
 if (file_exists($data_path)) {
     $json = file_get_contents($data_path);
     $projects = json_decode($json, true);

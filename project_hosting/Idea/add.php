@@ -173,7 +173,7 @@ if (isset($_SESSION['user_id'])) {
 
                 <div class="form-buttons">
                     <button type="submit">💡 Submit Idea</button>
-                    <a href="idea.php"><button type="button">Back</button></a>
+                    <a href="Idea/idea.php"><button type="button">Back</button></a>
                 </div>
             </form>
         </div>

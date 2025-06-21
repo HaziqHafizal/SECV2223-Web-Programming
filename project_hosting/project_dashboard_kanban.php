@@ -9,8 +9,8 @@ $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'] ?? 'User';
 
 $ideas = [];
-if (file_exists('ideas.json')) {
-    $ideas = json_decode(file_get_contents('ideas.json'), true);
+if (file_exists('Idea/ideas.json')) {
+    $ideas = json_decode(file_get_contents('Idea/ideas.json'), true);
 }
 
 // Normalize status values and group
@@ -21,6 +21,8 @@ $grouped_projects = [
 ];
 
 foreach ($ideas as $index => $idea) {
+    $idea['index'] = $index; // ✅ preserve index
+
     $raw_status = strtolower(trim($idea['status'] ?? 'not_started'));
 
     switch ($raw_status) {
@@ -40,8 +42,8 @@ foreach ($ideas as $index => $idea) {
             $grouped_projects['Not Started'][] = $idea;
             break;
     }
-
 }
+
 ?>
 
 <!DOCTYPE html>

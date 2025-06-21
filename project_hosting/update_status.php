@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $allowed_statuses = ['Not Started', 'In Progress', 'Completed'];
 
     if ($index >= 0 && in_array($new_status, $allowed_statuses)) {
-        $file = 'ideas.json';
+        $file = 'Idea/ideas.json';
         if (file_exists($file)) {
             $ideas = json_decode(file_get_contents($file), true);
 
