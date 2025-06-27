@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
   {
     "title": "Smart Waste Tracker",
@@ -12,3 +13,6 @@
     "status": "Not Started"
   }
 ]
+=======
+[{"title":"Smart Waste Tracker","short_desc":"simple","detailed_desc":"very amazing","tags":"enviroment","category":"Technology","skills":"php","collab":false,"visibility":"public","file":""},{"title":"qwe","short_desc":"qwe","detailed_desc":"qwe","link":"","tags":"qwe","category":"Health","status":"in_progress","collab":true,"visibility":"public","file":""}]
+>>>>>>> f934871340794bd77d000e2117a4f8787c79b82b
