@@ -507,3 +507,22 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+.status-badge {
+    display: inline-block;
+    font-size: 0.7em;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 5px;
+}
+.status-badge.in-progress {
+    background-color: #2a9d8f;
+}
+.status-badge.completed {
+    background-color: #264653;
+}
+.status-badge.not-started {
+    background-color: #e76f51;
+}
