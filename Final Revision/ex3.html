@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Scholarship Eligibility</title>
+    </head>
+
+    <body>
+        <h1>Credit Hour and ScholarShip Check</h1>
+        <script>
+            var course1_credits = 3;
+            var course2_credits = 4;
+            var course3_credits = 3;
+
+            var total_credits = course1_credits + course2_credits + course3_credits;
+
+            document.write("<h2>Results: </h2>");
+            document.write("Total credits: " + total_credits + "<br>");
+
+            if(total_credits >= 10)
+            {
+                document.write("Eligible for Scholarship!<b>");
+            }
+
+            else 
+            {
+                document.write("Not Eligible for Scholarship");
+            }
+        </script>
+    </body>
+</html>

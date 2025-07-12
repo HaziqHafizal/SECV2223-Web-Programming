@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Order Cost Calculator</title>
+    </head>
+    
+    <body>
+        <h1>Order Details and Total Cost</h1>
+        <script>
+            var item_price = 35.50;
+            var quantity = 3;
+            var shipping_fee;
+
+            var subtotal = item_price * quantity;
+
+            if(quantity >= 5)
+            {
+                shipping_fee = 10.00;
+            }
+
+            else if(quantity < 5 || quantity > 1)
+            {
+                shipping_fee = 5.00;
+            }
+
+            else
+            {
+                shipping_fee = 0.00;
+            }
+
+            var total_cost = shipping_fee + subtotal;
+
+            document.write("<h2>Order Summary:</h2>");
+            document.write("Item Price: RM" + item_price.toFixed(2) + "<br>");
+            document.write("Quantity: " + quantity + "<br>");
+            document.write("Subtotal: RM" + subtotal.toFixed(2) + "<br>");
+            document.write("Shipping Fee: RM" + shipping_fee.toFixed(2) + "<br>");
+            document.write("<h3>Total Cost: " + total_costtoFixed(2) + "</h3>");
+        </script>
+    </body>
+</html>

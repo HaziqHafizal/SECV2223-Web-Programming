@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <p id = "Demo"> </p>
+        <script>
+            //Used fo writing into an HTML element. You select an HTML element (by its ID) and then change its content
+            document.getElementById("Demo").innerHTML = "Hello World";
+
+            //document.write() used for writing directly into the HTML output stream
+            //For testing, its convenient but can overwrite the document if called after the page has loaded
+            document.write("<h1>Hello from document.write!<h1>");
+            document.write("<h2>Header 2 speaking<h2>");
+            document.write("<h3>Header 3 speaking<h3>");
+            
+            //window.alert() displays data in an alert box
+            window.alert("This is an alert message");
+
+            //console.log() writes output to the browser's console(useful for debugging)
+            console.log("This message appears in the console");
+
+            //window.prompt() used to get user input via a dialog box
+            //The input is always returned as a string
+
+            let userName = prompt("Please enter your name: ");
+            alert("Hello, " + username + "!");
+
+            //window.confirm() displays a dialog box with a message and "OK" and "Cancel" buttons
+            //Returns true if "OK" and false otherwise
+            let userConfirmed = confirm("Do you want to proceed?");
+            if(userConfirmed)
+            {
+                alert("You clicked OK!");
+            }
+
+            else
+            {
+                alert("You clicked Cancel");
+            }
+
+        </script>
+    </body>
+</html>

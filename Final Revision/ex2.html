@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>User Status Check</title>
+        <script>
+            //script should contain a function called checkStatus()
+            function checkStatus()
+            {
+                //prompt() box to ask the user: "Enter a status code (1 for active, 0 for inactive):"
+                var statusCodeInput = prompt("Enter a status code (1 for active, 0 for inactive): ");
+
+                //Store the user's input in a variable. Convert this input to an integer to ensure correct numerical comparison.
+                var statusCode = parseInt(statusCodeInput);
+
+                //Use an if...else if...else statement to evaluate the entered status code:
+                if (statusCodeInput == 1)
+                {
+                    alert("Status: Active. User can proceed");
+                }
+
+                else if(statusCodeInput == 0)
+                {
+                    alert("Status: Inactive. Access Denied");
+                }
+
+                else
+                {
+                    alert("Invalid Status Code. Please try again");
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <h1>Check User Status</h1>
+        <button onclick ="checkStatus()">Check My Status</button>
+    </body>
+</html>

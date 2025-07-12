@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dynamic Content</title>
+        <script>
+            function updateContent()
+            {
+                //1. Select the paragraph and button elements by their IDs
+                //getElementById() - returns the elements with specified ID attribute, otherwise it returns null
+                //if more than one element with the specified ID exists, it returns the first element in the source code
+                var messageElement = document.getElementById("message");
+                var imageElement = document.getElementById("myImage");
+
+                //2. Change the text content of the paragraph
+                messageElement.textContent = "Message updated by JavaScript";
+
+                //3. Change the src attribute of the img element
+                imageElement.setAttribute("src", "new_image.jpg");
+
+                //4. Change the alt attribute of the img element
+                imageElement.setAttribute("alt", "A new image");
+
+                //5. Change the width of the img element using inline CSS style
+                imageElement.style.width = "200px"; //Note: Assign as a string with 'px'
+            }
+
+            //Add an event listener to the button once the DOM is loaded
+            //This ensures the button element exists before we try to select it
+            document.addEventListener("DOMContentLoaded", function()
+            {
+                var changeButton = document.getElementById("changeBtn");
+                 // Attach the updateContent function to the 'click' event of the button
+                
+                 changeButton.addEventListener("click", updateContent);
+            });
+        </script>
+    </head>
+    <body>
+        <p id="message">Initial message here</p>
+        <button id="changeBtn">Change Message</button>
+        <img id="myImage" src="default.jpg" alt="Default Image" width="100">
+    </body>
+</html>

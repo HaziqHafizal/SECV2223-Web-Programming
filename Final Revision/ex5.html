@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Number Processor</title>
+        
+        <script>
+            function processNumber()
+            {
+                var username = prompt("Please enter your name: ");
+
+                var limitInput = prompt("Enter a positive integer (e.g., 5): ");
+
+                var limit = parseInt(limitInput);
+
+                alert("Hello, " + username);
+
+                for(i=0; i<=limit; i++)
+                {
+                    if(i == 3)
+                    {
+                        continue; //Skip the rest of the current iteration if number is 3
+                    }
+
+                    document.write("Number: " + i + "<br>");
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <h1>Interactive Number Display</h1>
+        <button onclick = "processNumber()">Start Number Process</button>
+    </body>
+</html>
